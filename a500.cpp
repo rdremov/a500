@@ -49,7 +49,53 @@ private:
 
 LARGE_INTEGER Elapsed::s_freq = {0};
 
+
+
 // ARRAY:
+void	ProblemDutchFlagSort012()
+{
+	static int A[] = {0, 1, 2, 2, 1, 0, 0, 2, 0, 1, 1, 0};
+	int cnt = sizeof(A)/sizeof(A[0]);
+
+	int ii = 0, jj = cnt-1;
+	int i0 = ii, j0 = jj;
+
+	while (ii<=jj)
+	{
+		if (2 != A[ii])
+		{
+			if (0 == A[ii])
+			{
+				if (i0 < ii)
+					A[i0] = A[ii];
+				i0++;
+			}
+			ii++;
+			continue;
+		}
+
+		if (0 != A[jj])
+		{
+			if (2 == A[jj])
+			{
+				if (j0 > jj)
+					A[j0] = A[jj];
+				j0--;
+			}
+			jj--;
+			continue;
+		}
+
+		int temp = A[ii];	// in case ii == i0
+		A[i0] = A[jj];
+		A[j0] = temp;
+		ii++; i0++;
+		jj--; j0--;
+	}
+
+	while (i0 <= j0)
+		A[i0++] = 1;
+}
 
 // BACKTRACKING:
 // Print all possible solutions to N Queens problem
@@ -290,7 +336,8 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	//{ProblemNqueen pnq(8); pnq.Solve();}
 	//ProblemShortestPathInMaze();
-	ProblemStringRotatedPalindrome();
+	//ProblemStringRotatedPalindrome();
+	ProblemDutchFlagSort012();
 
 	printf("\npress any key to quit...\n");
 	while( !_kbhit() );
